@@ -283,11 +283,7 @@ const HowItWorks = () => {
                     <div>
                       <div className="flex flex-wrap items-center gap-3">
                         <span className="text-xs font-black uppercase tracking-widest text-primary">
-                          {tx(
-                            lang,
-                            `Step ${index + 1}`,
-                            `الخطوة ${index + 1}`,
-                          )}
+                          {tx(lang, `Step ${index + 1}`, `الخطوة ${index + 1}`)}
                         </span>
                         <h3 className="text-xl font-extrabold text-foreground">
                           {title}
