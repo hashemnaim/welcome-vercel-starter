@@ -220,9 +220,18 @@ const VendorLogin = () => {
 
               <div className="mt-8 space-y-4 text-sm font-semibold">
                 {[
-                  tx(lang, "Your store remains linked to your account", "متجرك مرتبط بحسابك"),
-                  tx(lang, "Use phone or email to sign in", "يمكنك الدخول بالموبايل أو البريد"),
-                  tx(lang, "Egypt phone prefix is handled automatically", "مقدمة مصر يتم التعامل معها تلقائيًا"),
+                  tx(
+                    "Your store remains linked to your account",
+                    "متجرك مرتبط بحسابك",
+                  ),
+                  tx(
+                    "Use phone or email to sign in",
+                    "يمكنك الدخول بالموبايل أو البريد",
+                  ),
+                  tx(
+                    "Egypt phone prefix is handled automatically",
+                    "مقدمة مصر يتم التعامل معها تلقائيًا",
+                  ),
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" />
