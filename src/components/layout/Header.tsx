@@ -30,6 +30,7 @@ export const Header = () => {
 
   const navItems = [
     { label: isAr ? "الرئيسية" : "Home", href: "/" },
+    { label: isAr ? "كيف تعمل؟" : "How it works", href: "/how-it-works" },
     { label: isAr ? "الباقات" : "Pricing", href: "/#pricing" },
     { label: isAr ? "المتاجر" : "Stores", href: "/marketplace" },
     { label: isAr ? "المدونة" : "Blog", href: "/blog" },
