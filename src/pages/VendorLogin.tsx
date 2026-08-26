@@ -33,7 +33,8 @@ const phoneInputValue = (raw: string) => {
   let digits = raw.replace(/\D/g, "");
 
   if (digits.startsWith("0020")) digits = digits.slice(4);
-  else if (digits.startsWith("20") && digits.length > 10) digits = digits.slice(2);
+  else if (digits.startsWith("20") && digits.length > 10)
+    digits = digits.slice(2);
 
   if (digits.startsWith("0")) digits = digits.slice(1);
 
@@ -160,7 +161,10 @@ const VendorLogin = () => {
               "أدخل رقم موبايل مصري صحيح.",
             )
           : rawMessage === "INVALID_EMAIL"
-            ? tx("Enter a valid email address.", "أدخل بريدًا إلكترونيًا صحيحًا.")
+            ? tx(
+                "Enter a valid email address.",
+                "أدخل بريدًا إلكترونيًا صحيحًا.",
+              )
             : rawMessage || tx("Unexpected error.", "حدث خطأ غير متوقع.");
 
       showLoginError(message);
