@@ -1,12 +1,15 @@
-name: Deploy Main Website to VPS
+name: Quality Checks and Deploy Main Website
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
 
 jobs:
-  deploy:
+  quality:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,10 +19,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22.13.0
+          cache: npm
 
       - name: Install dependencies
         run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test
 
       - name: Build app
         run: npm run build:static
@@ -27,13 +37,41 @@ jobs:
       - name: Verify build output
         run: test -f dist/index.html
 
-      - name: Test VPS connection
-        run: |
-          echo "Testing port 22"
-          timeout 5 bash -c "</dev/tcp/${{ secrets.VPS_HOST }}/22" && echo "OK 22" || echo "FAIL 22"
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: quality
+    runs-on: ubuntu-latest
 
-          echo "Testing port 2228"
-          timeout 5 bash -c "</dev/tcp/${{ secrets.VPS_HOST }}/2228" && echo "OK 2228" || echo "FAIL 2228"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.0
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build app
+        run: npm run build:static
+
+      - name: Validate deployment secrets
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+        run: |
+          test -n "$VPS_HOST" || (echo "Missing GitHub secret: VPS_HOST" && exit 1)
+          test -n "$VPS_USER" || (echo "Missing GitHub secret: VPS_USER" && exit 1)
+          test -n "$VPS_SSH_KEY" || (echo "Missing GitHub secret: VPS_SSH_KEY" && exit 1)
+
+      - name: Test VPS connection
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+        run: timeout 5 bash -c "</dev/tcp/${VPS_HOST}/2228"
 
       - name: Deploy build to VPS
         uses: easingthemes/ssh-deploy@main
