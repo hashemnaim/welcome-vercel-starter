@@ -59,12 +59,7 @@ import {
 import { Link, useLocation, useNavigate } from "@/lib/router-compat";
 
 type StepKey =
-  | "store"
-  | "location"
-  | "delivery"
-  | "categories"
-  | "plan"
-  | "account";
+  "store" | "location" | "delivery" | "categories" | "plan" | "account";
 
 type SlugStatus = "idle" | "checking" | "available" | "taken" | "error";
 
@@ -280,7 +275,11 @@ const VendorApplyV2 = () => {
       ),
     },
     categories: {
-      title: tx(lang, "Help customers find you", "ساعد العملاء يوصلوا لمنتجاتك"),
+      title: tx(
+        lang,
+        "Help customers find you",
+        "ساعد العملاء يوصلوا لمنتجاتك",
+      ),
       subtitle: tx(
         lang,
         "Select the categories that best describe what your store sells.",
@@ -296,7 +295,11 @@ const VendorApplyV2 = () => {
       ),
     },
     account: {
-      title: tx(lang, "Last step: your admin account", "آخر خطوة: حساب إدارة المتجر"),
+      title: tx(
+        lang,
+        "Last step: your admin account",
+        "آخر خطوة: حساب إدارة المتجر",
+      ),
       subtitle: tx(
         lang,
         "Create the credentials you will use to manage the store and its orders.",
@@ -308,7 +311,11 @@ const VendorApplyV2 = () => {
   const commissionFeatures = [
     tx(lang, "Launch-ready online store", "متجر أونلاين جاهز للإطلاق"),
     tx(lang, "Professional merchant app", "تطبيق احترافي للتاجر"),
-    tx(lang, "Instant price and product updates", "تحديث فوري للأسعار والمنتجات"),
+    tx(
+      lang,
+      "Instant price and product updates",
+      "تحديث فوري للأسعار والمنتجات",
+    ),
     tx(lang, "Marketing consultations", "استشارات تسويقية"),
     tx(lang, "24/7 technical support", "دعم فني 24/7"),
     tx(lang, "Only 1% commission on sales", "عمولة ١٪ فقط على المبيعات"),
@@ -884,7 +891,11 @@ const VendorApplyV2 = () => {
                         </span>
                         <span className="min-w-0 flex-1">
                           <span className="block text-[10px] font-bold uppercase tracking-wide opacity-70">
-                            {tx(lang, `Step ${index + 1}`, `الخطوة ${index + 1}`)}
+                            {tx(
+                              lang,
+                              `Step ${index + 1}`,
+                              `الخطوة ${index + 1}`,
+                            )}
                           </span>
                           <span className="block truncate font-extrabold">
                             {item.label}
@@ -913,7 +924,10 @@ const VendorApplyV2 = () => {
                     </div>
                   </div>
                 </div>
-                <div dir="ltr" className="mt-4 truncate rounded-xl bg-muted px-3 py-2 font-mono text-[11px] text-muted-foreground">
+                <div
+                  dir="ltr"
+                  className="mt-4 truncate rounded-xl bg-muted px-3 py-2 font-mono text-[11px] text-muted-foreground"
+                >
                   store.shoplanser.com/{slugValue || "your-store"}
                 </div>
                 <div className="mt-4 flex items-start gap-2 text-xs leading-5 text-muted-foreground">
@@ -992,7 +1006,9 @@ const VendorApplyV2 = () => {
                     >
                       <Input
                         value={form.storeName}
-                        onChange={(event) => updateStoreName(event.target.value)}
+                        onChange={(event) =>
+                          updateStoreName(event.target.value)
+                        }
                         placeholder={tx(lang, "Example Market", "مثال ماركت")}
                         autoFocus
                         className="h-11"
@@ -1019,7 +1035,9 @@ const VendorApplyV2 = () => {
                           dir="ltr"
                           value={form.slug}
                           onChange={(event) => updateSlug(event.target.value)}
-                          placeholder={toStoreSlug(form.storeName) || "my-store"}
+                          placeholder={
+                            toStoreSlug(form.storeName) || "my-store"
+                          }
                           className="h-full border-0 font-mono focus-visible:ring-0"
                         />
                       </div>
@@ -1030,7 +1048,11 @@ const VendorApplyV2 = () => {
                         {slugStatus === "checking" && (
                           <span className="inline-flex items-center gap-1.5 text-muted-foreground">
                             <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                            {tx(lang, "Checking availability…", "جارٍ التحقق من الرابط…")}
+                            {tx(
+                              lang,
+                              "Checking availability…",
+                              "جارٍ التحقق من الرابط…",
+                            )}
                           </span>
                         )}
                         {slugStatus === "available" && (
@@ -1040,7 +1062,9 @@ const VendorApplyV2 = () => {
                           </span>
                         )}
                         {slugStatus === "taken" && (
-                          <span className="text-destructive">{slugMessage}</span>
+                          <span className="text-destructive">
+                            {slugMessage}
+                          </span>
                         )}
                         {slugStatus === "error" && (
                           <span className="text-amber-600">{slugMessage}</span>
@@ -1132,7 +1156,11 @@ const VendorApplyV2 = () => {
                           <SelectValue
                             placeholder={
                               loadingZones
-                                ? tx(lang, "Loading zones…", "جارٍ تحميل المناطق…")
+                                ? tx(
+                                    lang,
+                                    "Loading zones…",
+                                    "جارٍ تحميل المناطق…",
+                                  )
                                 : tx(lang, "Choose zone", "اختر المنطقة")
                             }
                           />
@@ -1194,7 +1222,9 @@ const VendorApplyV2 = () => {
                               key={module.id}
                               value={String(module.id)}
                             >
-                              {module.module_name ?? module.name ?? `#${module.id}`}
+                              {module.module_name ??
+                                module.name ??
+                                `#${module.id}`}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -1213,7 +1243,9 @@ const VendorApplyV2 = () => {
                   >
                     <Input
                       value={form.address}
-                      onChange={(event) => update("address", event.target.value)}
+                      onChange={(event) =>
+                        update("address", event.target.value)
+                      }
                       placeholder={tx(
                         lang,
                         "Street, area, city",
@@ -1230,7 +1262,11 @@ const VendorApplyV2 = () => {
                         {tx(lang, "Pin on map", "تحديد الموقع على الخريطة")}
                       </Label>
                       <span className="text-xs font-semibold text-muted-foreground">
-                        {tx(lang, "Optional but recommended", "اختياري لكنه مفضل")}
+                        {tx(
+                          lang,
+                          "Optional but recommended",
+                          "اختياري لكنه مفضل",
+                        )}
                       </span>
                     </div>
                     <p className="mt-1 text-xs leading-5 text-muted-foreground">
@@ -1292,10 +1328,7 @@ const VendorApplyV2 = () => {
                           className="h-11"
                         />
                       </Field>
-                      <Field
-                        label={tx(lang, "Currency", "العملة")}
-                        required
-                      >
+                      <Field label={tx(lang, "Currency", "العملة")} required>
                         <Select
                           value={form.deliveryCurrency}
                           onValueChange={(value) =>
@@ -1328,7 +1361,11 @@ const VendorApplyV2 = () => {
                       </span>
                       <div>
                         <h2 className="font-extrabold text-foreground">
-                          {tx(lang, "Expected delivery time", "مدة التوصيل المتوقعة")}
+                          {tx(
+                            lang,
+                            "Expected delivery time",
+                            "مدة التوصيل المتوقعة",
+                          )}
                         </h2>
                         <p className="mt-0.5 text-xs text-muted-foreground">
                           {tx(
@@ -1341,7 +1378,10 @@ const VendorApplyV2 = () => {
                     </div>
 
                     <div className="mt-5 grid gap-5 sm:grid-cols-3">
-                      <Field label={tx(lang, "Minimum", "الحد الأدنى")} required>
+                      <Field
+                        label={tx(lang, "Minimum", "الحد الأدنى")}
+                        required
+                      >
                         <MinuteInput
                           value={form.minDelivery}
                           onChange={(value) => update("minDelivery", value)}
@@ -1352,7 +1392,10 @@ const VendorApplyV2 = () => {
                           }
                         />
                       </Field>
-                      <Field label={tx(lang, "Maximum", "الحد الأقصى")} required>
+                      <Field
+                        label={tx(lang, "Maximum", "الحد الأقصى")}
+                        required
+                      >
                         <MinuteInput
                           value={form.maxDelivery}
                           onChange={(value) => update("maxDelivery", value)}
@@ -1363,10 +1406,15 @@ const VendorApplyV2 = () => {
                           }
                         />
                       </Field>
-                      <Field label={tx(lang, "Time unit", "وحدة الوقت")} required>
+                      <Field
+                        label={tx(lang, "Time unit", "وحدة الوقت")}
+                        required
+                      >
                         <Select
                           value={form.deliveryUnit}
-                          onValueChange={(value) => update("deliveryUnit", value)}
+                          onValueChange={(value) =>
+                            update("deliveryUnit", value)
+                          }
                         >
                           <SelectTrigger className="h-11">
                             <SelectValue />
@@ -1408,7 +1456,10 @@ const VendorApplyV2 = () => {
 
                     {!form.isOpen24Hours && (
                       <div className="mt-5 grid gap-5 sm:grid-cols-2">
-                        <Field label={tx(lang, "Opening time", "وقت الفتح")} required>
+                        <Field
+                          label={tx(lang, "Opening time", "وقت الفتح")}
+                          required
+                        >
                           <Input
                             type="time"
                             value={form.openingTime}
@@ -1418,7 +1469,10 @@ const VendorApplyV2 = () => {
                             className="h-11"
                           />
                         </Field>
-                        <Field label={tx(lang, "Closing time", "وقت الإغلاق")} required>
+                        <Field
+                          label={tx(lang, "Closing time", "وقت الإغلاق")}
+                          required
+                        >
                           <Input
                             type="time"
                             value={form.closingTime}
@@ -1465,7 +1519,11 @@ const VendorApplyV2 = () => {
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
                       <h2 className="font-extrabold text-foreground">
-                        {tx(lang, "Choose one or more categories", "اختر صنفًا أو أكثر")}
+                        {tx(
+                          lang,
+                          "Choose one or more categories",
+                          "اختر صنفًا أو أكثر",
+                        )}
                       </h2>
                       <p className="mt-1 text-xs text-muted-foreground">
                         {tx(
@@ -1559,7 +1617,11 @@ const VendorApplyV2 = () => {
                         "مناسبة لو تحب تكون التكلفة مرتبطة بالمبيعات الفعلية.",
                       )}
                       selectedLabel={tx(lang, "Selected", "محدد")}
-                      selectLabel={tx(lang, "Choose commission", "اختيار العمولة")}
+                      selectLabel={tx(
+                        lang,
+                        "Choose commission",
+                        "اختيار العمولة",
+                      )}
                       onClick={() =>
                         setForm((current) => ({
                           ...current,
@@ -1582,13 +1644,16 @@ const VendorApplyV2 = () => {
                         "مناسبة لو تفضّل تكلفة شهرية ثابتة وواضحة.",
                       )}
                       selectedLabel={tx(lang, "Selected", "محدد")}
-                      selectLabel={tx(lang, "Choose subscription", "اختيار الاشتراك")}
+                      selectLabel={tx(
+                        lang,
+                        "Choose subscription",
+                        "اختيار الاشتراك",
+                      )}
                       onClick={() =>
                         setForm((current) => ({
                           ...current,
                           businessPlan: "subscription",
-                          packageId:
-                            current.packageId === "1y" ? "1y" : "6m",
+                          packageId: current.packageId === "1y" ? "1y" : "6m",
                         }))
                       }
                     />
@@ -1597,7 +1662,11 @@ const VendorApplyV2 = () => {
                   {form.businessPlan === "subscription" && (
                     <div className="rounded-2xl border border-primary/20 bg-primary/5 p-5 sm:p-6">
                       <h2 className="font-extrabold text-foreground">
-                        {tx(lang, "Choose subscription term", "اختر مدة الاشتراك")}
+                        {tx(
+                          lang,
+                          "Choose subscription term",
+                          "اختر مدة الاشتراك",
+                        )}
                       </h2>
                       <div className="mt-4 grid gap-3 sm:grid-cols-2">
                         {[
@@ -1612,7 +1681,7 @@ const VendorApplyV2 = () => {
                           },
                           {
                             id: "1y",
-                            title: tx(lang, "1 year", "سنة") ,
+                            title: tx(lang, "1 year", "سنة"),
                             total: tx(
                               lang,
                               "9,600 EGP total",
@@ -1813,7 +1882,11 @@ const VendorApplyV2 = () => {
                           Boolean(form.ownerPasswordConfirm) &&
                           form.ownerPassword === form.ownerPasswordConfirm
                         }
-                        text={tx(lang, "Passwords match", "كلمتا المرور متطابقتان")}
+                        text={tx(
+                          lang,
+                          "Passwords match",
+                          "كلمتا المرور متطابقتان",
+                        )}
                       />
                     </div>
                   )}
@@ -1857,9 +1930,7 @@ const VendorApplyV2 = () => {
                         variant="ghost"
                         className="h-11 flex-1 sm:flex-none"
                       >
-                        <Link to="/">
-                          {tx(lang, "Cancel", "إلغاء")}
-                        </Link>
+                        <Link to="/">{tx(lang, "Cancel", "إلغاء")}</Link>
                       </Button>
                     )}
                     <span className="hidden text-xs text-muted-foreground md:inline">
@@ -1885,11 +1956,7 @@ const VendorApplyV2 = () => {
                       )}
                       {submitting
                         ? tx(lang, "Creating store…", "جارٍ إنشاء المتجر…")
-                        : tx(
-                            lang,
-                            "Create my store",
-                            "إنشاء متجري",
-                          )}
+                        : tx(lang, "Create my store", "إنشاء متجري")}
                     </Button>
                   ) : (
                     <Button
@@ -1956,9 +2023,13 @@ const Field = ({
   <div>
     <div className="flex items-center gap-1.5">
       <Label className="text-sm font-bold text-foreground">{label}</Label>
-      {required && <span className="text-sm font-bold text-destructive">*</span>}
+      {required && (
+        <span className="text-sm font-bold text-destructive">*</span>
+      )}
     </div>
-    {hint && <p className="mt-1 text-xs leading-5 text-muted-foreground">{hint}</p>}
+    {hint && (
+      <p className="mt-1 text-xs leading-5 text-muted-foreground">{hint}</p>
+    )}
     <div className="mt-2">{children}</div>
   </div>
 );
@@ -2008,12 +2079,16 @@ const FileField = ({
       )}
     </span>
     <span className="min-w-0 flex-1">
-      <span className="block text-sm font-extrabold text-foreground">{label}</span>
+      <span className="block text-sm font-extrabold text-foreground">
+        {label}
+      </span>
       <span className="mt-1 block truncate text-xs text-muted-foreground">
         {file?.name ?? tx(lang, "PNG, JPG, or WebP", "PNG أو JPG أو WebP")}
       </span>
       <span className="mt-1 block text-[11px] font-semibold text-primary">
-        {file ? tx(lang, "Change image", "تغيير الصورة") : tx(lang, "Choose image", "اختيار صورة")}
+        {file
+          ? tx(lang, "Change image", "تغيير الصورة")
+          : tx(lang, "Choose image", "اختيار صورة")}
       </span>
     </span>
     <input
@@ -2072,7 +2147,9 @@ const PlanOption = ({
           {icon}
         </span>
         <span>
-          <span className="block text-base font-black text-foreground">{title}</span>
+          <span className="block text-base font-black text-foreground">
+            {title}
+          </span>
           <span className="mt-0.5 block text-xs font-bold text-muted-foreground">
             {badge}
           </span>
@@ -2125,7 +2202,10 @@ const SummaryCard = ({ label, value }: { label: string; value: string }) => (
     <div className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
       {label}
     </div>
-    <div className="mt-1 truncate text-sm font-extrabold text-foreground" title={value}>
+    <div
+      className="mt-1 truncate text-sm font-extrabold text-foreground"
+      title={value}
+    >
       {value}
     </div>
   </div>
@@ -2134,12 +2214,14 @@ const SummaryCard = ({ label, value }: { label: string; value: string }) => (
 const StatusChip = ({ ok, text }: { ok: boolean; text: string }) => (
   <span
     className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 ${
-      ok
-        ? "bg-emerald-50 text-emerald-700"
-        : "bg-muted text-muted-foreground"
+      ok ? "bg-emerald-50 text-emerald-700" : "bg-muted text-muted-foreground"
     }`}
   >
-    {ok ? <CheckCircle2 className="h-3.5 w-3.5" /> : <AlertCircle className="h-3.5 w-3.5" />}
+    {ok ? (
+      <CheckCircle2 className="h-3.5 w-3.5" />
+    ) : (
+      <AlertCircle className="h-3.5 w-3.5" />
+    )}
     {text}
   </span>
 );
