@@ -1,0 +1,6 @@
+{"functions": [
+  {"name": "mcp", "classification": "MCP server", "signal": "JSON-RPC MCP handler served at a fixed URL", "outcome": "left"},
+  {"name": "shoplanser-proxy", "classification": "unknown", "signal": "no internal call sites in src/; declared in supabase/config.toml with verify_jwt off — URL assumed load-bearing", "outcome": "left"},
+  {"name": "store-og", "classification": "custom response", "signal": "serves crawler HTML/OG tags at a fixed public URL used by external social crawlers", "outcome": "left"},
+  {"name": "support-request", "classification": "internal-only (blocked)", "signal": "invoked from src/components/support/SupportForm.tsx but requires SUPABASE_SERVICE_ROLE_KEY, which is not available outside the Supabase functions runtime on Lovable Cloud", "outcome": "left"}
+]}

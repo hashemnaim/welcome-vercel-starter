@@ -1,0 +1,28 @@
+# SHOPLANCER
+
+> SHOPLANCER is a multi-vendor e-commerce platform that lets local merchants in the MENA region — supermarkets, pharmacies, fashion shops, restaurants, cafés and more — launch a professional online storefront in minutes with no code.
+
+## Pages
+
+- [Home](/): Product overview, pricing, FAQ and how-it-works.
+- [Marketplace](/marketplace): Browse every active vendor on SHOPLANCER, filter by category and city.
+- [Become a vendor](/vendor/apply): Step-by-step wizard to register a new store and pick a plan.
+- [Blog](/blog): Practical guides for local merchants — launching, growing and running a profitable online store.
+
+## Categories
+
+- [Grocery stores](/marketplace/grocery)
+- [Supermarkets](/marketplace/supermarket)
+- [Pharmacies](/marketplace/pharmacy)
+- [Bakeries](/marketplace/bakery)
+- [Fashion](/marketplace/fashion)
+- [Electronics](/marketplace/electronics)
+- [Restaurants](/marketplace/restaurants)
+- [Beauty](/marketplace/beauty)
+- [Cafés](/marketplace/cafe)
+- [Flowers](/marketplace/flowers)
+
+## Optional
+
+- [Privacy policy](/legal/privacy)
+- [Terms & conditions](/legal/terms)

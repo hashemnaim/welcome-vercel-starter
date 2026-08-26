@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "sdk_version": "0.20.1",
+  "path": "/functions/v1/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "shoplanser-mcp",
+      "version": "0.1.0",
+      "title": "Shoplanser MCP"
+    },
+    "tools": [
+      {
+        "name": "list_zones",
+        "title": "List delivery zones",
+        "description": "List the Shoplanser delivery zones available for stores.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_modules",
+        "title": "List store modules",
+        "description": "List the Shoplanser store modules (business types), optionally filtered by zone.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "zone_id": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "description": "Optional zone id to filter modules."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_categories",
+        "title": "List categories",
+        "description": "List Shoplanser categories, optionally scoped to a store module.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "module_id": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "description": "Optional module id to filter categories."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_stores",
+        "title": "List stores by module",
+        "description": "List Shoplanser stores for a given module (business type), with optional zone and pagination.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "module_id": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "description": "The store module id."
+            },
+            "zone_id": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "default": 1,
+              "description": "Zone id (defaults to 1)."
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "description": "Max stores to return."
+            },
+            "offset": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "description": "Page offset (1-based)."
+            }
+          },
+          "required": [
+            "module_id"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "check_store_slug",
+        "title": "Check store slug availability",
+        "description": "Check whether a store slug is already taken on Shoplanser.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "slug": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The store slug to check."
+            }
+          },
+          "required": [
+            "slug"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
