@@ -43,37 +43,48 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check VPS deployment configuration
+        id: vps_config
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+        run: |
+          if [ -n "$VPS_HOST" ] && [ -n "$VPS_USER" ] && [ -n "$VPS_SSH_KEY" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+            echo "VPS deployment is configured."
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::VPS deployment skipped because VPS_HOST, VPS_USER, and/or VPS_SSH_KEY are not configured. Vercel deployment is unaffected."
+          fi
+
       - name: Checkout code
+        if: steps.vps_config.outputs.configured == 'true'
         uses: actions/checkout@v4
 
       - name: Setup Node.js
+        if: steps.vps_config.outputs.configured == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: 22.13.0
           cache: npm
 
       - name: Install dependencies
+        if: steps.vps_config.outputs.configured == 'true'
         run: npm install
 
       - name: Build app
+        if: steps.vps_config.outputs.configured == 'true'
         run: npm run build:static
 
-      - name: Validate deployment secrets
-        env:
-          VPS_HOST: ${{ secrets.VPS_HOST }}
-          VPS_USER: ${{ secrets.VPS_USER }}
-          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
-        run: |
-          test -n "$VPS_HOST" || (echo "Missing GitHub secret: VPS_HOST" && exit 1)
-          test -n "$VPS_USER" || (echo "Missing GitHub secret: VPS_USER" && exit 1)
-          test -n "$VPS_SSH_KEY" || (echo "Missing GitHub secret: VPS_SSH_KEY" && exit 1)
-
       - name: Test VPS connection
+        if: steps.vps_config.outputs.configured == 'true'
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
         run: timeout 5 bash -c "</dev/tcp/${VPS_HOST}/2228"
 
       - name: Deploy build to VPS
+        if: steps.vps_config.outputs.configured == 'true'
         uses: easingthemes/ssh-deploy@main
         with:
           SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_KEY }}
