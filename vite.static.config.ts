@@ -3,7 +3,10 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
+const base = process.env.VITE_BASE_PATH || "/";
+
 export default defineConfig({
+  base,
   define: {
     "import.meta.env.VITE_STATIC_SPA": JSON.stringify("true"),
   },
