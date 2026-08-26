@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import {
   ArrowLeft,
+  ArrowRight,
   CheckCircle2,
   Eye,
   EyeOff,
@@ -10,6 +11,7 @@ import {
   Mail,
   ShieldCheck,
   Smartphone,
+  Sparkles,
   Store,
 } from "lucide-react";
 
@@ -201,8 +203,8 @@ const VendorLogin = () => {
         </div>
       </header>
 
-      <main className="container-page py-8 sm:py-12">
-        <div className="mx-auto grid max-w-5xl overflow-hidden rounded-3xl border border-border bg-card shadow-card lg:grid-cols-[0.82fr_1.18fr]">
+      <main className="container-page py-7 sm:py-12">
+        <div className="mx-auto grid max-w-5xl overflow-hidden rounded-3xl border border-border bg-card shadow-card lg:grid-cols-[0.84fr_1.16fr]">
           <aside className="hidden bg-primary p-8 text-primary-foreground lg:flex lg:flex-col lg:justify-between">
             <div>
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15">
@@ -241,12 +243,29 @@ const VendorLogin = () => {
               </div>
             </div>
 
-            <p className="mt-10 text-xs leading-6 text-primary-foreground/70">
-              {tx(
-                "Do not share your password with anyone. Shoplanser support will never ask you for it.",
-                "لا تشارك كلمة المرور مع أي شخص. دعم شوب لانسر لن يطلب منك كلمة المرور.",
-              )}
-            </p>
+            <div className="mt-10 rounded-2xl bg-white/10 p-4">
+              <div className="flex items-center gap-2 text-sm font-extrabold">
+                <Sparkles className="h-4 w-4" />
+                {tx("New to Shoplanser?", "أول مرة تستخدم شوب لانسر؟")}
+              </div>
+              <p className="mt-2 text-xs leading-6 text-primary-foreground/80">
+                {tx(
+                  "Create your store in six guided steps, then get your store link and QR page.",
+                  "أنشئ متجرك خلال 6 خطوات واضحة، وبعدها تحصل على رابط المتجر وصفحة QR.",
+                )}
+              </p>
+              <Button
+                asChild
+                type="button"
+                variant="secondary"
+                className="mt-4 w-full gap-2 font-extrabold"
+              >
+                <Link to="/vendor/apply">
+                  <Store className="h-4 w-4" />
+                  {tx("Create my store", "إنشاء متجري")}
+                </Link>
+              </Button>
+            </div>
           </aside>
 
           <section className="p-5 sm:p-8 lg:p-10">
@@ -269,8 +288,8 @@ const VendorLogin = () => {
               </h1>
               <p className="mt-2 max-w-xl text-sm leading-7 text-muted-foreground">
                 {tx(
-                  "Choose how you want to sign in. For Egyptian mobile numbers, +20 is added automatically.",
-                  "اختر طريقة الدخول. لأرقام الموبايل المصرية، مقدمة +20 تتم إضافتها تلقائيًا.",
+                  "Choose phone or email. For Egyptian mobile numbers, +20 is handled automatically.",
+                  "اختر الدخول بالموبايل أو البريد. لأرقام مصر، مقدمة +20 تتم معالجتها تلقائيًا.",
                 )}
               </p>
             </div>
@@ -321,8 +340,8 @@ const VendorLogin = () => {
                   </Label>
                   <p className="mt-1 text-xs leading-5 text-muted-foreground">
                     {tx(
-                      "Enter the 10 digits after +20. Pasting 010… or +20… is corrected automatically.",
-                      "اكتب 10 أرقام بعد +20. ولو لصقت الرقم بصيغة 010… أو +20… سنصححه تلقائيًا.",
+                      "Write the 10 digits after +20. Pasting 010…, 20…, or +20… is normalized automatically.",
+                      "اكتب 10 أرقام بعد +20. ولو لصقت الرقم بصيغة 010… أو 20… أو +20… سيتم تصحيحه تلقائيًا.",
                     )}
                   </p>
                   <div
@@ -376,6 +395,14 @@ const VendorLogin = () => {
                   <Label className="text-sm font-bold text-foreground">
                     {tx("Password", "كلمة المرور")}
                   </Label>
+                  <a
+                    href="https://wa.me/201036850264"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-xs font-bold text-primary hover:underline"
+                  >
+                    {tx("Forgot password?", "نسيت كلمة المرور؟")}
+                  </a>
                 </div>
                 <div className="relative mt-2">
                   <LockKeyhole className="absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -427,17 +454,36 @@ const VendorLogin = () => {
                 : tx("Sign in", "تسجيل الدخول")}
             </Button>
 
-            <div className="mt-6 flex flex-col items-center justify-between gap-3 border-t border-border pt-5 text-sm sm:flex-row">
-              <span className="text-muted-foreground">
-                {tx("Don't have a store yet?", "ليس لديك متجر حتى الآن؟")}
-              </span>
-              <Link
-                to="/vendor/apply"
-                className="inline-flex items-center gap-2 font-extrabold text-primary hover:underline"
+            <div className="mt-7 rounded-2xl border border-primary/20 bg-primary/5 p-4 sm:p-5 lg:hidden">
+              <div className="flex items-start gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <Store className="h-5 w-5" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="text-sm font-black text-foreground">
+                    {tx("Don't have a store yet?", "ليس لديك متجر حتى الآن؟")}
+                  </div>
+                  <p className="mt-1 text-xs leading-6 text-muted-foreground">
+                    {tx(
+                      "Create your store in six guided steps and get a shareable store link and QR page.",
+                      "أنشئ متجرك خلال 6 خطوات واضحة واحصل على رابط متجر قابل للمشاركة وصفحة QR.",
+                    )}
+                  </p>
+                </div>
+              </div>
+              <Button
+                asChild
+                type="button"
+                variant="outline"
+                className="mt-4 h-11 w-full gap-2 border-primary/30 font-extrabold text-primary hover:bg-primary/10"
               >
-                <Store className="h-4 w-4" />
-                {tx("Create your store", "أنشئ متجرك")}
-              </Link>
+                <Link to="/vendor/apply">
+                  {tx("Create my store", "إنشاء متجري")}
+                  <ArrowRight
+                    className={`h-4 w-4 ${dir === "rtl" ? "rotate-180" : ""}`}
+                  />
+                </Link>
+              </Button>
             </div>
           </section>
         </div>
