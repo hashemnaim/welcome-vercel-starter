@@ -8,7 +8,6 @@ import {
   Loader2,
   LockKeyhole,
   LogIn,
-  Mail,
   ShieldCheck,
   Smartphone,
   Sparkles,
@@ -22,11 +21,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { fetchVendorProfile } from "@/lib/shoplanserApi";
-import {
-  loginVendorAccount,
-  normalizeEgyptPhone,
-  type VendorLoginMode,
-} from "@/lib/vendorLogin";
+import { loginVendorAccount, normalizeEgyptPhone } from "@/lib/vendorLogin";
 import { Link, useNavigate } from "@/lib/router-compat";
 
 const phoneInputValue = (raw: string) => {
@@ -48,7 +43,6 @@ const VendorLogin = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const [mode, setMode] = useState<VendorLoginMode>("phone");
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -102,12 +96,6 @@ const VendorLogin = () => {
     [toast, tx],
   );
 
-  const changeMode = (nextMode: VendorLoginMode) => {
-    setMode(nextMode);
-    setIdentifier("");
-    setInlineError("");
-  };
-
   const handleLogin = async () => {
     if (loading) return;
 
@@ -115,18 +103,18 @@ const VendorLogin = () => {
     if (!cleanIdentifier || !password) {
       showLoginError(
         tx(
-          "Enter your login details and password.",
-          "أدخل بيانات الدخول وكلمة المرور.",
+          "Enter your mobile number and password.",
+          "أدخل رقم الموبايل وكلمة المرور.",
         ),
       );
       return;
     }
 
-    if (mode === "phone" && !normalizeEgyptPhone(cleanIdentifier)) {
+    if (!normalizeEgyptPhone(cleanIdentifier)) {
       showLoginError(
         tx(
           "Enter a valid Egyptian mobile number.",
-          "أدخل رقم موبايل مصري صحيح مكوّن من 10 أرقام بعد +20.",
+          "أدخل رقم موبايل مصري صحيح.",
         ),
       );
       return;
@@ -139,7 +127,7 @@ const VendorLogin = () => {
       const result = await loginVendorAccount({
         identifier: cleanIdentifier,
         password,
-        mode,
+        mode: "phone",
       });
 
       if (!result.token) {
@@ -160,12 +148,7 @@ const VendorLogin = () => {
               "Enter a valid Egyptian mobile number.",
               "أدخل رقم موبايل مصري صحيح.",
             )
-          : rawMessage === "INVALID_EMAIL"
-            ? tx(
-                "Enter a valid email address.",
-                "أدخل بريدًا إلكترونيًا صحيحًا.",
-              )
-            : rawMessage || tx("Unexpected error.", "حدث خطأ غير متوقع.");
+          : rawMessage || tx("Unexpected error.", "حدث خطأ غير متوقع.");
 
       showLoginError(message);
     } finally {
@@ -231,12 +214,12 @@ const VendorLogin = () => {
                     "متجرك مرتبط بحسابك",
                   ),
                   tx(
-                    "Use phone or email to sign in",
-                    "يمكنك الدخول بالموبايل أو البريد",
+                    "Sign in with your registered mobile number",
+                    "سجّل الدخول برقم الموبايل المسجل",
                   ),
                   tx(
-                    "Egypt phone prefix is handled automatically",
-                    "مقدمة مصر يتم التعامل معها تلقائيًا",
+                    "Egypt country code is already selected",
+                    "مقدمة مصر محددة مسبقًا",
                   ),
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">
@@ -292,39 +275,10 @@ const VendorLogin = () => {
               </h1>
               <p className="mt-2 max-w-xl text-sm leading-7 text-muted-foreground">
                 {tx(
-                  "Choose phone or email. For Egyptian mobile numbers, +20 is handled automatically.",
-                  "اختر الدخول بالموبايل أو البريد. لأرقام مصر، مقدمة +20 تتم معالجتها تلقائيًا.",
+                  "Use the mobile number registered with your store.",
+                  "استخدم رقم الموبايل المسجل في حساب متجرك.",
                 )}
               </p>
-            </div>
-
-            <div className="mt-7 grid grid-cols-2 rounded-xl bg-muted p-1">
-              <button
-                type="button"
-                onClick={() => changeMode("phone")}
-                aria-pressed={mode === "phone"}
-                className={`flex h-10 items-center justify-center gap-2 rounded-lg text-sm font-extrabold transition ${
-                  mode === "phone"
-                    ? "bg-background text-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <Smartphone className="h-4 w-4" />
-                {tx("Mobile", "الموبايل")}
-              </button>
-              <button
-                type="button"
-                onClick={() => changeMode("email")}
-                aria-pressed={mode === "email"}
-                className={`flex h-10 items-center justify-center gap-2 rounded-lg text-sm font-extrabold transition ${
-                  mode === "email"
-                    ? "bg-background text-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <Mail className="h-4 w-4" />
-                {tx("Email", "البريد")}
-              </button>
             </div>
 
             {inlineError && (
@@ -336,63 +290,34 @@ const VendorLogin = () => {
               </div>
             )}
 
-            <div className="mt-6 space-y-5">
-              {mode === "phone" ? (
-                <div>
-                  <Label className="text-sm font-bold text-foreground">
-                    {tx("Mobile number", "رقم الموبايل")}
-                  </Label>
-                  <p className="mt-1 text-xs leading-5 text-muted-foreground">
-                    {tx(
-                      "Write the 10 digits after +20. Pasting 010…, 20…, or +20… is normalized automatically.",
-                      "اكتب 10 أرقام بعد +20. ولو لصقت الرقم بصيغة 010… أو 20… أو +20… سيتم تصحيحه تلقائيًا.",
-                    )}
-                  </p>
-                  <div
+            <div className="mt-7 space-y-5">
+              <div>
+                <Label className="flex items-center gap-2 text-sm font-bold text-foreground">
+                  <Smartphone className="h-4 w-4 text-primary" />
+                  {tx("Mobile number", "رقم الموبايل")}
+                </Label>
+                <div
+                  dir="ltr"
+                  className="mt-2 flex h-12 overflow-hidden rounded-md border border-input bg-background focus-within:ring-2 focus-within:ring-ring"
+                >
+                  <span className="flex items-center border-r border-border bg-muted px-3 font-bold text-foreground">
+                    +20
+                  </span>
+                  <Input
                     dir="ltr"
-                    className="mt-2 flex h-12 overflow-hidden rounded-md border border-input bg-background focus-within:ring-2 focus-within:ring-ring"
-                  >
-                    <span className="flex items-center border-r border-border bg-muted px-3 font-bold text-foreground">
-                      +20
-                    </span>
-                    <Input
-                      dir="ltr"
-                      inputMode="tel"
-                      autoComplete="tel"
-                      value={identifier}
-                      onChange={(event) => {
-                        setIdentifier(phoneInputValue(event.target.value));
-                        setInlineError("");
-                      }}
-                      placeholder="1080140222"
-                      className="h-full border-0 text-base tracking-wide focus-visible:ring-0"
-                      autoFocus
-                    />
-                  </div>
+                    inputMode="tel"
+                    autoComplete="tel"
+                    value={identifier}
+                    onChange={(event) => {
+                      setIdentifier(phoneInputValue(event.target.value));
+                      setInlineError("");
+                    }}
+                    placeholder="1080140222"
+                    className="h-full border-0 text-base tracking-wide focus-visible:ring-0"
+                    autoFocus
+                  />
                 </div>
-              ) : (
-                <div>
-                  <Label className="text-sm font-bold text-foreground">
-                    {tx("Email address", "البريد الإلكتروني")}
-                  </Label>
-                  <div className="relative mt-2">
-                    <Input
-                      type="email"
-                      dir="ltr"
-                      autoComplete="email"
-                      value={identifier}
-                      onChange={(event) => {
-                        setIdentifier(event.target.value);
-                        setInlineError("");
-                      }}
-                      placeholder="name@example.com"
-                      className="h-12 pe-11"
-                      autoFocus
-                    />
-                    <Mail className="absolute end-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  </div>
-                </div>
-              )}
+              </div>
 
               <div>
                 <div className="flex items-center justify-between gap-3">
