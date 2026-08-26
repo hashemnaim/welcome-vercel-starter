@@ -42,6 +42,7 @@ const escapeXml = (value: string) =>
 function entries(): Entry[] {
   return [
     { path: "/", changefreq: "weekly", priority: "1.0" },
+    { path: "/how-it-works", changefreq: "monthly", priority: "0.9" },
     { path: "/marketplace", changefreq: "daily", priority: "0.9" },
     ...CATEGORIES.map((c) => ({
       path: `/marketplace/${c}`,
