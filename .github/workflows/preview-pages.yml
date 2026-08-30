@@ -40,6 +40,7 @@ jobs:
       - name: Build preview
         env:
           VITE_BASE_PATH: /welcome-vercel-starter/
+          VITE_PREVIEW_MODE: "true"
         run: npm run build:static
 
       - name: Add SPA fallback

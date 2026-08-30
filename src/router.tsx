@@ -4,9 +4,10 @@ import { routeTree } from "./routeTree.gen";
 
 export const getRouter = () => {
   const queryClient = new QueryClient();
-  const basepath = import.meta.env.VITE_STATIC_SPA === "true"
-    ? import.meta.env.BASE_URL.replace(/\/$/, "") || "/"
-    : "/";
+  const basepath =
+    import.meta.env.VITE_STATIC_SPA === "true"
+      ? import.meta.env.BASE_URL.replace(/\/$/, "") || "/"
+      : "/";
 
   const router = createRouter({
     routeTree,

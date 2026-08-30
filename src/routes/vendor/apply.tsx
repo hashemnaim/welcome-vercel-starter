@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import VendorApply from "@/pages/VendorApply";
+import VendorApplyV2 from "@/pages/VendorApplyV2";
 import { pageHead, SITE_URL } from "@/lib/seo";
 
 export const Route = createFileRoute("/vendor/apply")({
@@ -25,5 +25,5 @@ export const Route = createFileRoute("/vendor/apply")({
         inLanguage: "ar",
       },
     }),
-  component: VendorApply,
+  component: VendorApplyV2,
 });

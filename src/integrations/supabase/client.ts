@@ -2,8 +2,24 @@
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "./types";
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+const isPreview = import.meta.env.VITE_PREVIEW_MODE === "true";
+const configuredSupabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const configuredSupabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+
+// GitHub Pages is only a visual preview. It deliberately does not contain
+// production environment values. Use harmless placeholders there so the app
+// can render instead of crashing during module initialization.
+const SUPABASE_URL =
+  configuredSupabaseUrl ||
+  (isPreview ? "https://preview-placeholder.supabase.co" : "");
+const SUPABASE_PUBLISHABLE_KEY =
+  configuredSupabaseKey || (isPreview ? "preview-placeholder-key" : "");
+
+if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
+  throw new Error(
+    "Missing Supabase configuration. Set VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY.",
+  );
+}
 
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
