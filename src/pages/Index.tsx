@@ -34,11 +34,6 @@ const AppFeatures = lazy(() =>
     default: m.AppFeatures,
   })),
 );
-const QRBannerFigma = lazy(() =>
-  import("@/components/landing/QRBannerFigma").then((m) => ({
-    default: m.QRBannerFigma,
-  })),
-);
 const StoresGrid = lazy(() =>
   import("@/components/landing/StoresGrid").then((m) => ({
     default: m.StoresGrid,
@@ -93,9 +88,6 @@ const Index = () => {
           </Reveal>
           <Reveal variant="left">
             <AppFeatures />
-          </Reveal>
-          <Reveal variant="right">
-            <QRBannerFigma />
           </Reveal>
           <Reveal variant="up">
             <StoresGrid />
