@@ -8,9 +8,7 @@ export const FinalCTA = () => {
   const isAr = lang === "ar";
   const Chevron = isAr ? ChevronLeft : ChevronRight;
 
-  const badges = isAr
-    ? ["دعم فني 24/7", "بدون رسوم إعداد"]
-    : ["24/7 support", "No setup fees"];
+  const badges = isAr ? ["دعم فني 24/7"] : ["24/7 support"];
 
   return (
     <section className="bg-background px-4 pb-10 pt-12 sm:px-6 sm:pb-16 sm:pt-20 md:pt-28">
