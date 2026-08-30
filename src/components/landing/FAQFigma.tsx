@@ -10,46 +10,54 @@ export const FAQFigma = () => {
   const faqs = isAr
     ? [
         {
-          q: "كم يستغرق إطلاق المتجر؟",
-          a: "دقيقة واحدة فقط لإنشاء الحساب، ثم دقائق لإضافة منتجاتك الأولى.",
+          q: "كم يستغرق إنشاء المتجر؟",
+          a: "يمكنك إنشاء متجرك خلال دقائق، ثم تسجيل الدخول وإضافة منتجاتك وتجهيز المتجر للعملاء.",
         },
         {
           q: "هل هناك عمولة على المبيعات؟",
-          a: "لا، جميع باقات ستارت ونمو بدون أي عمولة على المبيعات.",
+          a: "يوجد خياران: باقة العمولة بنسبة 1% على المبيعات بدون اشتراك شهري، أو باقة اشتراك بدون عمولة على المبيعات.",
         },
         {
-          q: "هل يمكنني تخصيص شكل المتجر؟",
-          a: "نعم، تختار الثيم، الألوان، والشعار — كل شيء قابل للتعديل.",
+          q: "هل يمكنني تخصيص هوية المتجر؟",
+          a: "نعم، يمكنك تحديد اسم المتجر والشعار واللون الرئيسي والرابط الخاص بمتجرك أثناء الإنشاء.",
         },
         {
-          q: "هل هناك تطبيق للجوال؟",
-          a: "نعم، تطبيق كامل على أندرويد و iOS بهوية متجرك الخاصة.",
+          q: "هل يوجد تطبيق للتاجر؟",
+          a: "نعم، يوجد تطبيق احترافي للتاجر لإدارة المنتجات والطلبات ومتابعة المتجر بسهولة.",
         },
         {
           q: "كيف أستقبل المدفوعات؟",
-          a: "ندعم البوابات المحلية والدفع عند الاستلام والتحويل البنكي.",
+          a: "تستقبل المدفوعات مباشرة من العميل؛ إما نقدًا عند الاستلام، أو عبر محافظك الإلكترونية وحساباتك الشخصية التي تحددها للعميل.",
+        },
+        {
+          q: "متى يصبح المتجر جاهزًا للعملاء؟",
+          a: "بعد إنشاء المتجر وتسجيل الدخول، أضف منتجاتك. بمجرد وجود منتجات جاهزة للعرض يمكنك مشاركة رابط متجرك والبدء باستقبال العملاء والطلبات.",
         },
       ]
     : [
         {
-          q: "How long does it take to launch?",
-          a: "Just one minute to create the account, then a few more to add your first products.",
+          q: "How long does it take to create a store?",
+          a: "You can create your store in minutes, then sign in, add your products, and prepare it for customers.",
         },
         {
-          q: "Are there any sales commissions?",
-          a: "No, all Start and Growth plans have zero commission on sales.",
+          q: "Are there sales commissions?",
+          a: "There are two options: a 1% commission plan with no monthly subscription, or a subscription plan with no sales commission.",
         },
         {
-          q: "Can I customize the storefront?",
-          a: "Yes — theme, colors, and logo are all editable.",
+          q: "Can I customize my store identity?",
+          a: "Yes. You can choose your store name, logo, primary color, and store URL during setup.",
         },
         {
-          q: "Is there a mobile app?",
-          a: "Yes, a full Android and iOS app branded with your store identity.",
+          q: "Is there a merchant app?",
+          a: "Yes. A professional merchant app is available to manage products, orders, and your store.",
         },
         {
           q: "How do I receive payments?",
-          a: "We support local gateways, cash on delivery, and bank transfer.",
+          a: "You receive payments directly from customers, either as cash on delivery or through your own e-wallets and personal payment accounts.",
+        },
+        {
+          q: "When is my store ready for customers?",
+          a: "After creating the store and signing in, add your products. Once products are ready to display, you can share your store link and start receiving customers and orders.",
         },
       ];
 
